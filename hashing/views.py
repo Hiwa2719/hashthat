@@ -1,6 +1,7 @@
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 
 
-class IndexView(FormView):
-    pass
+class IndexView(TemplateView):
+    template_name = 'hashing/index.html'
+
 

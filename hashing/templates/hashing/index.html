@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-6 bg-light text-center mx-auto">
+                <h1>SHA256 Generator</h1>
+                <form action="#" method="Post">
+                    {% csrf_token %}
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <input type="submit" class="btn btn-warning" value="Generate Hash">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
