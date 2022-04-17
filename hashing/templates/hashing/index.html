@@ -3,14 +3,18 @@
 
 {% block content %}
     <div class="">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-6 bg-light text-center mx-auto">
-                <h1>SHA256 Generator</h1>
+        <div class="row justify-content-center align-items-center vh-100">
+            <div class="col-4 bg-light text-center rounded-1">
+                <h1 class="my-5">SHA256 Generator</h1>
                 <form action="#" method="Post">
                     {% csrf_token %}
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
-                    <input type="submit" class="btn btn-warning" value="Generate Hash">
+                    <textarea name="" id="" cols="60" rows="15"></textarea><br>
                 </form>
+                <button type="submit" class="btn btn-warning my-3">Generate Hash</button>
+                {% if request.user.is_authenticated %}
+                    <button class="btn btn-primary">Save</button>
+                {% endif %}
+                <button class="btn btn-success">Clear</button>
             </div>
         </div>
     </div>
