@@ -13,7 +13,11 @@ def hash_generator(text):
 
 
 class HashGenerator(View):
-    def get(self, *args, **kwargs):
+    def post(self,request, *args, **kwargs):
         """Generating hash from text"""
-        text = self.kwargs.get('text')
+        text = request.POST.get('text')
         return JsonResponse({'hash': hash_generator(text)})
+
+
+class AccountView(TemplateView):
+    template_name = 'account.html'
