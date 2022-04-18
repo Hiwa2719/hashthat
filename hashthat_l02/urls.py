@@ -20,11 +20,12 @@ from django.urls import path, include
 from hashing import views
 
 urlpatterns = [
+    path('account/', views.AccountView.as_view(), name='account'),
     path('admin/', admin.site.urls),
+    path('change-password/', PasswordChangeView.as_view(), name='change-password'),
+    path('delete-account/<int:pk>/', views.DeleteAccount.as_view(), name='delete-account'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', views.RegisterView.as_view(), name='register'),
-    path('delete-account/<int:pk>/', views.DeleteAccount.as_view(), name='delete-account'),
-    path('change-password/', PasswordChangeView.as_view(), name='change-password'),
     path('', include('hashing.urls'))
 ]
