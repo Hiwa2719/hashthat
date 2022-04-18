@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 
+from hashing import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', views.RegisterView.as_view(), name='register'),
     path('', include('hashing.urls'))
 ]

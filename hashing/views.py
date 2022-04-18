@@ -1,7 +1,12 @@
 import hashlib
 
+from django.contrib.auth import get_user_model
 from django.http import JsonResponse
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, CreateView
+from django.contrib.auth.forms import UserCreationForm
+
+
+User = get_user_model()
 
 
 class IndexView(TemplateView):
@@ -21,3 +26,9 @@ class HashGenerator(View):
 
 class AccountView(TemplateView):
     template_name = 'account.html'
+
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+
+
