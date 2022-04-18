@@ -44,3 +44,10 @@ class HashListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Hash.objects.filter(user=self.request.user)
 
+
+class SaveHash(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        text = request.POST.get('text')
+        hash_string = hash_generator(text)
+        Hash.objects.create(user=request.user, text=text, hash=hash_string)
+        return JsonResponse({'message': 'your text and hash has been saved'})
