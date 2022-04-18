@@ -24,5 +24,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', views.RegisterView.as_view(), name='register'),
+    path('delete-account/<int:pk>/', views.DeleteAccount.as_view(), name='delete-account'),
     path('', include('hashing.urls'))
 ]

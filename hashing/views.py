@@ -2,9 +2,9 @@ import hashlib
 
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
-from django.views.generic import TemplateView, View, CreateView
+from django.views.generic import TemplateView, View, CreateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
-
+from django.urls import reverse_lazy
 
 User = get_user_model()
 
@@ -32,3 +32,6 @@ class RegisterView(CreateView):
     form_class = UserCreationForm
 
 
+class DeleteAccount(DeleteView):
+    success_url = reverse_lazy('hashing:index')
+    model = User
