@@ -43,6 +43,8 @@ class AccountView(LoginRequiredMixin, TemplateView):
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
+    template_name = 'registration/login.html'
+    success_url = reverse_lazy('hashing:index')
 
 
 class DeleteAccount(LoginRequiredMixin, DeleteView):
