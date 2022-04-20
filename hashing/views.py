@@ -5,19 +5,27 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, View, CreateView, DeleteView, ListView
+from django.views.generic import TemplateView, View, CreateView, DeleteView, ListView, FormView
 
+from .forms import HashForm
 from .models import Hash
 
 User = get_user_model()
 
 
-class IndexView(TemplateView):
-    template_name = 'index.html'
-
-
 def hash_generator(text):
     return hashlib.sha256(text.encode('utf-8')).hexdigest()
+
+
+class IndexView(FormView):
+    template_name = 'hashing/index.html'
+    form_class = HashForm
+
+    def form_valid(self, form):
+        context = super().get_context_data()
+        context['form'] = form
+        context['hash'] = hash_generator(self.request.POST.get('text'))
+        return self.render_to_response(context)
 
 
 class HashGenerator(View):
