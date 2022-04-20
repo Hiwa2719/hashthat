@@ -30,15 +30,8 @@ class IndexView(FormView):
         return self.render_to_response(context)
 
 
-class HashGenerator(View):
-    def post(self, request, *args, **kwargs):
-        """Generating hash from text"""
-        text = request.POST.get('text')
-        return JsonResponse({'hash': hash_generator(text)})
-
-
 class AccountView(LoginRequiredMixin, TemplateView):
-    template_name = 'account.html'
+    template_name = 'hashing/account.html'
 
 
 class RegisterView(CreateView):
