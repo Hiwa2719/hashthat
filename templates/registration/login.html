@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}
+    Login Page
+{% endblock %}
+
+{% block content %}
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col-4 bg-light h-50 rounded-3 position-relative">
+            <a  style="z-index: 10" href="{% url 'hashing:index' %}" class="position-absolute">Home</a>
+            <div class="d-flex flex-column align-items-center justify-content-center h-100 w-100 position-absolute top-0">
+                <h1 class="mb-5">
+                    <strong>Please fill in</strong>
+                </h1>
+                <form action="" method="POST" class="w-75">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button class="btn btn-warning my-3" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
