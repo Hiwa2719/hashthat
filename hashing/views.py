@@ -23,8 +23,10 @@ class IndexView(FormView):
 
     def form_valid(self, form):
         context = super().get_context_data()
-        context['form'] = form
-        context['hash'] = hash_generator(self.request.POST.get('text'))
+        context.update({
+            'form': form,
+            'hash': hash_generator(self.request.POST.get('text'))
+        })
         return self.render_to_response(context)
 
 
