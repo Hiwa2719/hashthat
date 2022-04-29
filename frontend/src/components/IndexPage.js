@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import Login from './Login'
 
 
 export default class IndexPage extends React.Component {
@@ -39,16 +40,12 @@ export default class IndexPage extends React.Component {
         this.inputRef.current.value = ''
     }
 
-    loginHandler = () => {
-        this.props.toggleOpenModal(<h1>hello world</h1>)
-    }
-
     render() {
         const {toggleOpenModal, isAuthenticated} = this.props
         return (
             <div className="index-page w-50 d-flex justify-content-center h-75">
                 <div className="text-light bg-secondary w-75 p-1 rounded-1">
-                    <div className="text-end pe-3 mb-3" onClick={this.loginHandler}>
+                    <div className="text-end pe-3 mb-3">
                         {isAuthenticated ?
                             (
                                 <div>
@@ -57,7 +54,7 @@ export default class IndexPage extends React.Component {
                             ) :
                             (
                                 <div>
-                                    <span>Login</span> / <span>Register</span>
+                                    <span onClick={() => toggleOpenModal(<Login/>)}>Login</span> / <span>Register</span>
                                 </div>
                             )
                         }

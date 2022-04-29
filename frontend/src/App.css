@@ -38,3 +38,16 @@
 .index-page span{
     cursor: pointer;
 }
+
+.login {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    height: 100%;
+}
+
+.login form {
+    width: 100%;
+}
