@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import Login from './Login'
-
+import Register from './Register'
 
 export default class IndexPage extends React.Component {
     constructor() {
@@ -54,7 +54,9 @@ export default class IndexPage extends React.Component {
                             ) :
                             (
                                 <div>
-                                    <span onClick={() => toggleOpenModal(<Login/>)}>Login</span> / <span>Register</span>
+                                    <span onClick={() => toggleOpenModal(<Login/>)}>Login</span>
+                                    <> / </>
+                                    <span onClick={() => toggleOpenModal(<Register/>)}>Register</span>
                                 </div>
                             )
                         }
