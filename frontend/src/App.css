@@ -1,0 +1,12 @@
+
+.text-area {
+    height: 70%;
+    background-color: rgb(108, 117, 125);
+    outline: none;
+    border: none
+}
+
+
+.hash-box {
+    height: 5%;
+}
