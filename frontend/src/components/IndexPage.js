@@ -38,11 +38,16 @@ export default class IndexPage extends React.Component {
         this.inputRef.current.value = ''
     }
 
+    loginHandler = () =>{
+        this.props.toggleOpenModal(<h1>hello world</h1>)
+    }
+
     render() {
+        const {toggleOpenModal} = this.props
         return (
             <div className="w-50 d-flex justify-content-center h-75">
                 <div className="text-light bg-secondary w-75 p-1 rounded-1">
-                    <div className="text-end pe-3 mb-3">
+                    <div className="text-end pe-3 mb-3" onClick={this.loginHandler}>
                         Login / Register
                     </div>
                     <h1 className="text-center my-3">Please Enter your Text</h1>
