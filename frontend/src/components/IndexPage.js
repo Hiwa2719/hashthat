@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import Login from './Login'
 import Register from './Register'
 
+
 export default class IndexPage extends React.Component {
     constructor() {
         super();
@@ -49,7 +50,7 @@ export default class IndexPage extends React.Component {
                         {isAuthenticated ?
                             (
                                 <div>
-                                    <Link to='/account/'>My Account</Link> / <span>Logout</span>
+                                    <Link to='/account/'>My Account</Link> / <Link to="/logout/">Logout</Link>
                                 </div>
                             ) :
                             (
