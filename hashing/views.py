@@ -62,3 +62,8 @@ class SaveHash(LoginRequiredMixin, View):
         hash_string = hash_generator(text)
         Hash.objects.create(user=request.user, text=text, hash=hash_string)
         return JsonResponse({'message': 'your text and hash has been saved'})
+
+
+def generate_hash(request):
+    text = request.GET.get('text')
+    return JsonResponse({'hash': hash_generator(text)})

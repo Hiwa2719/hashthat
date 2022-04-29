@@ -1,8 +1,8 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import IndexPage from "./components/IndexPage";
+import IndexPage from "./pages/IndexPage";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Account from './components/Account'
+import Account from './pages/Account'
 import Modal from './components/Modal'
 import {useState} from "react";
 
