@@ -19,7 +19,6 @@ export default class IndexPage extends React.Component {
     componentDidMount() {
         axios.get('/check_authentication/')
             .then(response => {
-                console.log(response)
                 this.setState({
                     isAuthenticated: response.data.isAuthenticated
                 })
@@ -68,9 +67,22 @@ export default class IndexPage extends React.Component {
         })
     }
 
+    logoutHandler = () => {
+        axios.get('/logout/')
+            .then(response => {
+                this.setState({
+                    isAuthenticated: false
+                })
+            })
+            .catch(error => {
+                console.log('error')
+                console.log(error)
+            })
+    }
+
     render() {
         const {toggleOpenModal, onclose} = this.props
-        const isAuthenticated = this.state
+        const {isAuthenticated} = this.state
         const {hash} = this.state
         return (
             <div className="index-page w-50 d-flex justify-content-center h-75">
@@ -79,13 +91,18 @@ export default class IndexPage extends React.Component {
                         {isAuthenticated ?
                             (
                                 <div>
-                                    <Link to='/account/'>My Account</Link> / <Link to="/logout/">Logout</Link>
+                                    <Link to='/account/'>My Account</Link> / <span
+                                    onClick={this.logoutHandler}>Logout</span>
                                 </div>
                             ) :
                             (
                                 <div>
-                                    <span onClick={() => toggleOpenModal(<Login onClose={onclose}/>)}>Login</span>
-                                    <> /</>
+                                    <span onClick={() => toggleOpenModal(
+                                        <Login onClose={onclose}
+                                               setAuthenticated={() => this.setState({isAuthenticated: true})}/>)}>
+                                        Login
+                                    </span>
+                                    <> / </>
                                     <span onClick={() => toggleOpenModal(<Register onClose={onclose}/>)}>Register</span>
                                 </div>
                             )

@@ -8,11 +8,10 @@ const Login = props => {
 
     const submitForm = (e) => {
         e.preventDefault()
-        console.log('submitting')
         axios.post('/login/', {username: username, password: password})
             .then(response => {
-                console.log('Success')
                 props.onClose()
+                props.setAuthenticated()
             })
             .catch(error => {
                 console.log('error')

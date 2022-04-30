@@ -1,7 +1,7 @@
 import hashlib
 import json
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -86,3 +86,8 @@ def login_view(request):
 
 def check_authentication(request):
     return JsonResponse({'isAuthenticated': request.user.is_authenticated})
+
+
+def logout_view(request):
+    logout(request)
+    return JsonResponse({'isAuthenticated': False})
