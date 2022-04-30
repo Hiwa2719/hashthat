@@ -42,6 +42,8 @@ def register_view(request):
     data = json.loads(request.body)
     form = UserCreationForm(data=data)
     if form.is_valid():
+        user = form.save()
+        login(request, user)
         return JsonResponse({})
     return JsonResponse(form.errors, status=400)
 
