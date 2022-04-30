@@ -1,12 +1,14 @@
 import hashlib
+import json
 
+from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, View, CreateView, DeleteView, ListView, FormView
-
+from django.views.decorators.csrf import csrf_exempt
 from .forms import HashForm
 from .models import Hash
 
@@ -67,3 +69,15 @@ class SaveHash(LoginRequiredMixin, View):
 def generate_hash(request):
     text = request.GET.get('text')
     return JsonResponse({'hash': hash_generator(text)})
+
+
+@csrf_exempt
+def login_view(request):
+    data = json.loads(request.body)
+    username = data.get('username')
+    password = data.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user:
+        login(request, user)
+        return JsonResponse({'isAuthenticate': True})
+    return JsonResponse({}, status=400)

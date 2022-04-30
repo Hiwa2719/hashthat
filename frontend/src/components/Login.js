@@ -6,11 +6,13 @@ const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const submitForm = () => {
+    const submitForm = (e) => {
+        e.preventDefault()
+        console.log('submitting')
         axios.post('/login/', {username: username, password: password})
             .then(response => {
                 console.log('Success')
-                // todo implement closing modal
+                console.log(response.data)
             })
             .catch(error => {
                 console.log('error')
