@@ -7,8 +7,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, View, CreateView, DeleteView, ListView, FormView
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView, View, CreateView, DeleteView, ListView, FormView
+
 from .forms import HashForm
 from .models import Hash
 
@@ -81,3 +82,7 @@ def login_view(request):
         login(request, user)
         return JsonResponse({'isAuthenticate': True})
     return JsonResponse({}, status=400)
+
+
+def check_authentication(request):
+    return JsonResponse({'isAuthenticated': request.user.is_authenticated})

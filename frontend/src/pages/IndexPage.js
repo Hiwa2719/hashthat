@@ -11,13 +11,28 @@ export default class IndexPage extends React.Component {
         this.state = {
             hash: null,
             text: '',
+            isAuthenticated: null,
         }
         this.inputRef = React.createRef()
     }
 
+    componentDidMount() {
+        axios.get('/check_authentication/')
+            .then(response => {
+                console.log(response)
+                this.setState({
+                    isAuthenticated: response.data.isAuthenticated
+                })
+            })
+            .catch(error => {
+                console.log('error')
+                console.log(error)
+            })
+    }
+
     generateHash = () => {
         let text = this.state.text
-        if(!text) return
+        if (!text) return
         axios.get('/generate_hash/', {params: {text: text}})
             .then(response => {
                 this.setState({
@@ -54,7 +69,8 @@ export default class IndexPage extends React.Component {
     }
 
     render() {
-        const {toggleOpenModal, isAuthenticated, onclose} = this.props
+        const {toggleOpenModal, onclose} = this.props
+        const isAuthenticated = this.state
         const {hash} = this.state
         return (
             <div className="index-page w-50 d-flex justify-content-center h-75">
