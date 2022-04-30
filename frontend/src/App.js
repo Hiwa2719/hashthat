@@ -15,15 +15,16 @@ function App() {
         setOpenModal(true)
     }
 
+    const onClose = () => setOpenModal(false)
     return (
         <div className="App">
             <Router>
                 <div className="vh-100 d-flex align-items-center justify-content-center bg-dark">
                     <Routes>
                         <Route path="/account/" element={<Account/>}/>
-                        <Route path="/" element={<IndexPage toggleOpenModal={toggleOpenModal}/>}/>
+                        <Route path="/" element={<IndexPage toggleOpenModal={toggleOpenModal} onclose={onClose}/>}/>
                     </Routes>
-                    <Modal openModal={openModal} onClose={()=> setOpenModal(false)} modalInner={modalInner}/>
+                    <Modal openModal={openModal} onClose={onClose} modalInner={modalInner}/>
                 </div>
             </Router>
         </div>

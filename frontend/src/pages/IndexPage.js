@@ -54,7 +54,7 @@ export default class IndexPage extends React.Component {
     }
 
     render() {
-        const {toggleOpenModal, isAuthenticated} = this.props
+        const {toggleOpenModal, isAuthenticated, onclose} = this.props
         const {hash} = this.state
         return (
             <div className="index-page w-50 d-flex justify-content-center h-75">
@@ -68,9 +68,9 @@ export default class IndexPage extends React.Component {
                             ) :
                             (
                                 <div>
-                                    <span onClick={() => toggleOpenModal(<Login/>)}>Login</span>
+                                    <span onClick={() => toggleOpenModal(<Login onClose={onclose}/>)}>Login</span>
                                     <> /</>
-                                    <span onClick={() => toggleOpenModal(<Register/>)}>Register</span>
+                                    <span onClick={() => toggleOpenModal(<Register onClose={onclose}/>)}>Register</span>
                                 </div>
                             )
                         }

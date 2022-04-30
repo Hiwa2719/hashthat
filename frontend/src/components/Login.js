@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import axios from "axios";
 
 
-const Login = () => {
+const Login = props => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -12,7 +12,7 @@ const Login = () => {
         axios.post('/login/', {username: username, password: password})
             .then(response => {
                 console.log('Success')
-                console.log(response.data)
+                props.onClose()
             })
             .catch(error => {
                 console.log('error')

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 
 
-const Register = () => {
+const Register = props => {
     const [username, setUsername] = useState('')
     const [password1, setPassword1] = useState('')
     const [password2, setPassword2] = useState('')
@@ -11,7 +11,7 @@ const Register = () => {
         axios.post('/register/', {username: username, password1: password1, password2: password2})
             .then(response => {
                 console.log('Success')
-                // todo implement closing modal
+                props.onClose()
             })
             .catch(error => {
                 console.log('error')
