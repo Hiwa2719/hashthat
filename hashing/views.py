@@ -37,10 +37,13 @@ class AccountView(LoginRequiredMixin, TemplateView):
     template_name = 'hashing/account.html'
 
 
-class RegisterView(CreateView):
-    form_class = UserCreationForm
-    template_name = 'registration/login.html'
-    success_url = reverse_lazy('hashing:index')
+@csrf_exempt
+def register_view(request):
+    data = json.loads(request.body)
+    form = UserCreationForm(data=data)
+    if form.is_valid():
+        return JsonResponse({})
+    return JsonResponse(form.errors, status=400)
 
 
 class DeleteAccount(LoginRequiredMixin, DeleteView):

@@ -103,7 +103,9 @@ export default class IndexPage extends React.Component {
                                         Login
                                     </span>
                                     <> / </>
-                                    <span onClick={() => toggleOpenModal(<Register onClose={onclose}/>)}>Register</span>
+                                    <span onClick={() => toggleOpenModal(
+                                        <Register onClose={onclose}
+                                                  setAuthenticated={() => this.setState({isAuthenticated: true})}/>)}>Register</span>
                                 </div>
                             )
                         }
