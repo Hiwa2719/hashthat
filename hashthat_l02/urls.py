@@ -22,7 +22,7 @@ from hashing import views
 urlpatterns = [
     path('account/', views.AccountView.as_view(), name='account'),
     path('admin/', admin.site.urls),
-    path('change-password/', PasswordChangeView.as_view(), name='change-password'),
+    path('change-password/', views.change_password, name='change-password'),
     path('delete_account/', views.delete_account, name='delete_account'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),

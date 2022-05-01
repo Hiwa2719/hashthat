@@ -61,7 +61,7 @@
 }
 
 .hash-table {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 tr:nth-child(even) {

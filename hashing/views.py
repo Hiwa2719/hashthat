@@ -1,9 +1,10 @@
+from django.contrib.auth.hashers import make_password
 import hashlib
 import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.http import JsonResponse
@@ -92,3 +93,16 @@ def delete_account(request):
         user.delete()
         return JsonResponse({})
     return JsonResponse({'error': 'You are not allowed to do this request'})
+
+
+@csrf_exempt
+def change_password(request):
+    user = request.user
+    if user.is_authenticated and request.method == 'POST':
+        data = json.loads(request.body)
+        form = PasswordChangeForm(user=user, data=data)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({})
+        return JsonResponse(form.errors, status=400)
+    return JsonResponse({'error': 'You are not allowed to do this action'}, status=400)

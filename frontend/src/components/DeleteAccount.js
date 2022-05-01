@@ -22,7 +22,7 @@ export default class DeleteAccount extends React.Component {
                 <h1>Are you Sure to delete your account?!?</h1>
                 <small>your data will be wiped out permanently</small>
                 <div className="my-3">
-                    <Link to="/" className="btn btn-danger me-2" onClick={this.deleteHandler}>Yes</Link>
+                    <Link to="/" className="btn btn-danger me-2 px-4" onClick={this.deleteHandler}>Yes</Link>
                     <button className="btn btn-success ms-2" onClick={()=> onClose()}>Cancel</button>
                 </div>
             </div>
