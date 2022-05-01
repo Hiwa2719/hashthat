@@ -18,11 +18,8 @@ const Register = props => {
                 props.setAuthenticated()
             })
             .catch(error => {
-                console.log('error')
-                console.log(error)
                 setUserErrors(error.response.data.username)
                 setPasswordErrors(error.response.data.password2)
-                // todo implement showing error messages
             })
     }
 

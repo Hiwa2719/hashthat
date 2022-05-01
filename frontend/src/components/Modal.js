@@ -6,7 +6,7 @@ const Modal = ({openModal, onClose, modalInner}) => {
     return (
         <div className="overlay" onClick={onClose}>
             <div className="modal-container bg-light w-50 h-50" onClick={(e)=>e.stopPropagation()}>
-                <h5 className="" onClick={onClose}>X</h5>
+                <h5 className="close-button" onClick={onClose}>X</h5>
                 {
                     modalInner
                 }

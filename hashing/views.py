@@ -3,13 +3,13 @@ import json
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView, View, CreateView, DeleteView, ListView, FormView
-
+from django.contrib.auth.views import LoginView
 from .forms import HashForm
 from .models import Hash
 
@@ -80,13 +80,11 @@ def generate_hash(request):
 @csrf_exempt
 def login_view(request):
     data = json.loads(request.body)
-    username = data.get('username')
-    password = data.get('password')
-    user = authenticate(request, username=username, password=password)
-    if user:
-        login(request, user)
+    form = AuthenticationForm(request, data=data)
+    if form.is_valid():
+        login(request, form.get_user())
         return JsonResponse({'isAuthenticate': True})
-    return JsonResponse({}, status=400)
+    return JsonResponse(form.errors, status=400)
 
 
 def check_authentication(request):
