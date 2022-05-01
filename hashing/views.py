@@ -1,15 +1,16 @@
 import hashlib
 import json
 
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.utils import IntegrityError
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, View, CreateView, DeleteView, ListView, FormView
-from django.contrib.auth.views import LoginView
+from django.views.generic import TemplateView, DeleteView, ListView, FormView
+
 from .forms import HashForm
 from .models import Hash
 
@@ -63,7 +64,10 @@ def save_hash(request):
     if request.method == 'POST' and request.user.is_authenticated:
         text = json.loads(request.body).get('text')
         hash_string = hash_generator(text)
-        Hash.objects.create(user=request.user, text=text, hash=hash_string)
+        try:
+            Hash.objects.create(user=request.user, text=text, hash=hash_string)
+        except IntegrityError:
+            pass
         return JsonResponse({'message': 'your text and hash has been saved'})
     return JsonResponse({'error': 'Wrong http method'}, status=403)
 
