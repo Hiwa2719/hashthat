@@ -94,3 +94,18 @@ def check_authentication(request):
 def logout_view(request):
     logout(request)
     return JsonResponse({'isAuthenticated': False})
+
+
+def hash_list(request):
+    user = request.user
+    if user.is_authenticated:
+        hashes = Hash.objects.filter(user=user).order_by('-created_date')
+        hash_list = [
+            {
+                'text': hash.text,
+                'hash': hash.hash,
+                'created_date': hash.created_date
+            } for hash in hashes
+        ]
+        return JsonResponse(hash_list, safe=False)
+    return JsonResponse({'errror': 'You don\'t have access to this page'}, status=400)

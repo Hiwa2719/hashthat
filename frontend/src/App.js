@@ -21,7 +21,7 @@ function App() {
             <Router>
                 <div className="vh-100 d-flex align-items-center justify-content-center bg-dark">
                     <Routes>
-                        <Route path="/account/" element={<Account/>}/>
+                        <Route path="/account/" element={<Account toggleOpenModal={toggleOpenModal}/>}/>
                         <Route path="/" element={<IndexPage toggleOpenModal={toggleOpenModal} onclose={onClose}/>}/>
                     </Routes>
                     <Modal openModal={openModal} onClose={onClose} modalInner={modalInner}/>
