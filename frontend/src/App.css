@@ -32,7 +32,6 @@
     text-align: right;
     padding-right: 10px;
     padding-top: 5px;
-
 }
 
 .index-page span {
@@ -64,6 +63,15 @@
 .hash-table {
     overflow-y: scroll;
 }
+
 tr:nth-child(even) {
     background-color: #e1e1e1;
+}
+
+.delete-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
 }

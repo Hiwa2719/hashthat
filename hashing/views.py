@@ -7,11 +7,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 from django.http import JsonResponse
-from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, DeleteView, ListView, FormView
+from django.views.generic import TemplateView
 
-from .forms import HashForm
 from .models import Hash
 
 User = get_user_model()
@@ -19,19 +17,6 @@ User = get_user_model()
 
 def hash_generator(text):
     return hashlib.sha256(text.encode('utf-8')).hexdigest()
-
-
-class IndexView(FormView):
-    template_name = 'hashing/index.html'
-    form_class = HashForm
-
-    def form_valid(self, form):
-        context = super().get_context_data()
-        context.update({
-            'form': form,
-            'hash': hash_generator(self.request.POST.get('text'))
-        })
-        return self.render_to_response(context)
 
 
 class AccountView(LoginRequiredMixin, TemplateView):
@@ -47,16 +32,6 @@ def register_view(request):
         login(request, user)
         return JsonResponse({})
     return JsonResponse(form.errors, status=400)
-
-
-class DeleteAccount(LoginRequiredMixin, DeleteView):
-    success_url = reverse_lazy('hashing:index')
-    model = User
-
-
-class HashListView(LoginRequiredMixin, ListView):
-    def get_queryset(self):
-        return Hash.objects.filter(user=self.request.user)
 
 
 @csrf_exempt
@@ -109,3 +84,11 @@ def hash_list(request):
         ]
         return JsonResponse(hash_list, safe=False)
     return JsonResponse({'errror': 'You don\'t have access to this page'}, status=400)
+
+
+def delete_account(request):
+    user = request.user
+    if user.is_authenticated:
+        user.delete()
+        return JsonResponse({})
+    return JsonResponse({'error': 'You are not allowed to do this request'})
