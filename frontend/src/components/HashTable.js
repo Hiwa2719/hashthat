@@ -5,10 +5,10 @@ import HashItem from './HashItem'
 const HashTable = ({hashes}) => {
     if (!hashes) return <h1>You didn't save any hash</h1>
     return (
-        <div className="hash-table">
+        <div className="hash-table text-center">
             <table className="w-100">
                 <thead>
-                <tr className="text-center bg-success">
+                <tr className="bg-success">
                     <th>Text</th>
                     <th>Hash</th>
                     <th>created date</th>

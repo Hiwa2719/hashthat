@@ -104,7 +104,7 @@ def hash_list(request):
             {
                 'text': hash.text,
                 'hash': hash.hash,
-                'created_date': hash.created_date
+                'created_date': hash.date_format()
             } for hash in hashes
         ]
         return JsonResponse(hash_list, safe=False)
