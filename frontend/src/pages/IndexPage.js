@@ -44,7 +44,7 @@ export default class IndexPage extends React.Component {
             })
     }
     saveHashHandler = () => {
-        axios.post('/save-text-hash/', this.state.text)
+        axios.post('/save-text-hash/', {text:this.state.text})
             .then(response => {
                 alert('Your text has been saved')
             })
@@ -116,7 +116,9 @@ export default class IndexPage extends React.Component {
                     <div className="hash-box text-center">{hash}</div>
                     <div className="text-center mt-2">
                         <button className="mx-1 btn btn-success" onClick={this.generateHash}>Generate Hash</button>
-                        <button className="mx-1 btn btn-warning" onClick={this.saveHashHandler}>Save Hash</button>
+                        {isAuthenticated &&
+                                <button className="mx-1 btn btn-warning" onClick={this.saveHashHandler}>Save Hash</button>
+                        }
                         <button className="mx-1 btn btn-primary" onClick={this.clearHandle}>Clear Form</button>
                     </div>
                 </div>

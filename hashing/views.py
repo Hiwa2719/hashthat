@@ -58,18 +58,14 @@ class HashListView(LoginRequiredMixin, ListView):
         return Hash.objects.filter(user=self.request.user)
 
 
-class SaveHash(LoginRequiredMixin, View):
-    def dispatch(self, request, *args, **kwargs):
-        print('in dispatch')
-        return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        text = request.POST.get('text')
-        print(text)
-        raise
+@csrf_exempt
+def save_hash(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        text = json.loads(request.body).get('text')
         hash_string = hash_generator(text)
         Hash.objects.create(user=request.user, text=text, hash=hash_string)
         return JsonResponse({'message': 'your text and hash has been saved'})
+    return JsonResponse({'error': 'Wrong http method'}, status=403)
 
 
 def generate_hash(request):
