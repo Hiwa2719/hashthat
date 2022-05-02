@@ -1,26 +1,14 @@
 import React from "react";
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import axios from "axios";
 import HashTable from '../components/HashTable'
 import DeleteAccount from "../components/DeleteAccount";
 import ChangePassword from '../components/ChangePassword'
 
 
-const withRouter = (Component) => {
-    const Wrapper = props => {
-        const navigate = useNavigate()
-        return <Component navigate={navigate}/>
-    }
-    return Wrapper
-}
-
-
-class Account extends React.Component {
+export default class Account extends React.Component {
     logoutHandler = () => {
         axios.get('/logout/')
-            .then(response=>{
-                this.props.navigate('/')
-            })
             .catch(error => {
                 console.log('error')
                 console.log(error)
@@ -30,7 +18,7 @@ class Account extends React.Component {
     hashList = () => {
         axios.get('/hash_list/')
             .then(response => {
-                let hashes = response.data
+                let hashes =response.data
                 this.props.toggleOpenModal(<HashTable hashes={hashes}/>)
             })
             .catch(error => {
@@ -41,7 +29,6 @@ class Account extends React.Component {
 
     deleteHandler = () => {
         this.props.toggleOpenModal(<DeleteAccount onClose={this.props.onclose}/>)
-        this.props.navigate('/')
     }
 
     changePasswordHandler = () => {
@@ -55,14 +42,10 @@ class Account extends React.Component {
                 <button className="text-hash-list btn btn-success mx-1 my-3" onClick={this.hashList}>Display saved
                     Text/Hash
                 </button>
-                <button className="pass-change btn btn-primary mx-1 my-3" onClick={this.changePasswordHandler}>Change
-                    password
-                </button>
-                <button className="logout btn btn-warning mx-1 my-3" onClick={this.logoutHandler}>logout</button>
+                <button className="pass-change btn btn-primary mx-1 my-3" onClick={this.changePasswordHandler}>Change password</button>
+                <Link className="logout btn btn-warning mx-1 my-3" to="/" onClick={this.logoutHandler}>logout</Link>
                 <button className="btn btn-danger mx-1 my-3" onClick={this.deleteHandler}>Delete Account</button>
             </div>
         )
     }
 }
-
-export default withRouter(Account)
