@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {HashRouter as Router, Route, Routes} from "react-router-dom";
 import IndexPage from "./pages/IndexPage";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Account from './pages/Account'
