@@ -1,4 +1,4 @@
-<h1 style="text-align: center">Simple hash site</h1>
+<h1 style="display: inlline; margin: auto auto;">Simple hash site</h1>
 
 <div style="width: 75%; margin: 10px auto">
 <img src="hash_that.gif">
