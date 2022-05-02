@@ -1,15 +1,16 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import withRouter from './withRouter'
 import axios from "axios";
 
 
-export default class DeleteAccount extends React.Component {
+class DeleteAccount extends React.Component {
     deleteHandler = () => {
         axios.get('/delete_account/')
             .then(response => {
                 this.props.onClose()
+                this.props.navigate('/')
             })
-            .catch(error=>{
+            .catch(error => {
                 console.log('error')
                 console.log(error)
             })
@@ -22,10 +23,12 @@ export default class DeleteAccount extends React.Component {
                 <h1>Are you Sure to delete your account?!?</h1>
                 <small>your data will be wiped out permanently</small>
                 <div className="my-3">
-                    <Link to="/" className="btn btn-danger me-2 px-4" onClick={this.deleteHandler}>Yes</Link>
-                    <button className="btn btn-success ms-2" onClick={()=> onClose()}>Cancel</button>
+                    <button className="btn btn-danger me-2 px-4" onClick={this.deleteHandler}>Yes</button>
+                    <button className="btn btn-success ms-2" onClick={() => onClose()}>Cancel</button>
                 </div>
             </div>
         )
     }
 }
+
+export default withRouter(DeleteAccount)
